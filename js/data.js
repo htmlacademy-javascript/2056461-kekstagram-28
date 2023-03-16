@@ -1,5 +1,5 @@
-import {getRandomInteger} from './util.js';
-import {getRandomArrayElement} from './util.js';
+import {getRandomInteger} from './utils.js';
+import {getRandomArrayElement} from './utils.js';
 import {NAMES} from './mock.js';
 import {SURNAMES} from './mock.js';
 import {DESCRIPTIONS} from './mock.js';
