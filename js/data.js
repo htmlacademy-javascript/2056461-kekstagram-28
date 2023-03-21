@@ -1,12 +1,5 @@
-import {getRandomInteger} from './utils.js';
-import {getRandomArrayElement} from './utils.js';
-import {NAMES} from './mock.js';
-import {SURNAMES} from './mock.js';
-import {DESCRIPTIONS} from './mock.js';
-import {USER_COMMENTS} from './mock.js';
-import {USERS_ARTICLES} from './mock.js';
-
-const commentsQuantity = getRandomInteger(1, 4);
+import {getRandomInteger, getRandomArrayElement} from './utils.js';
+import {NAMES, SURNAMES, DESCRIPTIONS, USER_COMMENTS, USERS_ARTICLES} from './mock.js';
 
 const getRandomName = () => `${getRandomArrayElement(NAMES)} ${getRandomArrayElement(SURNAMES)}`;
 
@@ -17,7 +10,17 @@ const createComment = (index) => ({
   name: getRandomName(),
 });
 
-const createCommentArray = () => Array.from({length: commentsQuantity}, (_, commentIndex) => createComment(commentIndex + 1));
+const getCommentsQuantity = () => {
+  let lastGeneratedLength = 0;
+  return function() {
+    lastGeneratedLength = getRandomInteger(1, 10);
+    return lastGeneratedLength;
+  };
+};
+
+const generatedLength = getCommentsQuantity();
+
+const createCommentArray = () => Array.from({length: generatedLength()}, (_, commentIndex) => createComment(commentIndex + 1));
 
 const createPhotoDescription = (index) => ({
   id: index,
@@ -29,4 +32,4 @@ const createPhotoDescription = (index) => ({
 
 const createPostsArray = () => Array.from({length: USERS_ARTICLES}, (_, photoIndex) => createPhotoDescription(photoIndex + 1));
 
-export {createPostsArray};
+export {createPostsArray, createCommentArray};
