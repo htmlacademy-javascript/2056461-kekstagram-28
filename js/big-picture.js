@@ -3,9 +3,8 @@ import {usersImagesList, usersPublications} from './image-elements.js';
 import {renderPostContent, renderComments} from './picture-content.js';
 
 const bigPictureWindow = document.querySelector('.big-picture');
-const commentsCount = bigPictureWindow.querySelector('.social__comment-count');
-const commentsLoader = bigPictureWindow.querySelector('.comments-loader');
 const bigPictureClose = bigPictureWindow.querySelector('.big-picture__cancel');
+const commentsLoaderButton = bigPictureWindow.querySelector('.comments-loader');
 
 const onDocumentKeyDown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -14,20 +13,19 @@ const onDocumentKeyDown = (evt) => {
   }
 };
 
-function openBigPicture (id) {
+const openBigPicture = (id) => {
   bigPictureWindow.classList.remove('hidden');
-  commentsCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeyDown);
   renderPostContent(id);
   renderComments(id);
-}
+  commentsLoaderButton.addEventListener('click', () => {
+    renderComments(id);
+  });
+};
 
-function closeBigPicture () {
+function closeBigPicture() {
   bigPictureWindow.classList.add('hidden');
-  commentsCount.classList.remove('hidden');
-  commentsLoader.classList.remove('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeyDown);
 }
