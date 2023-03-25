@@ -2,7 +2,8 @@ const renderContainer = document.querySelector('.big-picture');
 const bigPictureSelector = renderContainer.querySelector('.big-picture__img');
 const bigPictureSrc = bigPictureSelector.querySelector('img');
 const bigPictureLikesCount = renderContainer.querySelector('.likes-count');
-const bigPictureCommentsLength = renderContainer.querySelector('.social__comment-count');
+const bigPictureCommentsShown = renderContainer.querySelector('.comments-count');
+const bigPictureCommenTotal = renderContainer.querySelector('.comments-count--total');
 const bigPictureDescription = renderContainer.querySelector('.social__caption');
 const commentsField = renderContainer.querySelector('.social__comments');
 const commentsLoader = renderContainer.querySelector('.comments-loader');
@@ -11,13 +12,14 @@ const commentElementTamplate = document.querySelector('#comment')
   .querySelector('.social__comment');
 
 const COMMENTS_PORTION_SHOWN = 5;
-
+let commentLength = 0;
 
 const renderPostContent = (element) => {
+  commentLength = 0;
   bigPictureSrc.src = element.url;
   bigPictureSrc.alt = element.description;
   bigPictureLikesCount.textContent = element.likes;
-  bigPictureCommentsLength.textContent = element.comments.length;
+  bigPictureCommentsShown.textContent = element.comments.length;
   bigPictureDescription.textContent = element.description;
 };
 
@@ -26,15 +28,12 @@ const renderComment = (element) => {
   commentElement.querySelector('.social__picture').src = element.avatar;
   commentElement.querySelector('.social__picture').alt = element.name;
   commentElement.querySelector('.social__text').textContent = element.message;
-
   return commentElement;
 };
 
 const usersCommentsFragment = document.createDocumentFragment();
 
-let commentLength = 0;
-
-function renderComments(element) {
+const renderComments = (element) => {
   commentLength += COMMENTS_PORTION_SHOWN;
   const usersComments = element.comments;
 
@@ -52,7 +51,8 @@ function renderComments(element) {
 
   commentsField.innerHTML = '';
   commentsField.appendChild(usersCommentsFragment);
-  bigPictureCommentsLength.innerHTML = `${commentLength} из <span class="comments-count">${usersComments.length}</span> комментариев</div>`;
-}
+  bigPictureCommenTotal.innerHTML = usersComments.length;
+  bigPictureCommentsShown.innerHTML = commentLength;
+};
 
 export {renderPostContent, renderComments};
