@@ -37,8 +37,13 @@ function closeBigPicture() {
 }
 
 usersImagesList.addEventListener('click', (evt) => {
-  evt.preventDefault();
   const thumbnail = evt.target.closest('[data-thumbnail-id]');
+  if (!thumbnail) {
+    return;
+  } else {
+    evt.preventDefault();
+  }
+
   picture = usersPublications.find((item) => item.id === Number(thumbnail.dataset.thumbnailId));
 
   if (evt.target.closest('.picture')) {
