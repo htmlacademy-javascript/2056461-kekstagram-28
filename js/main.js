@@ -3,3 +3,7 @@ import './utils.js';
 import './data.js';
 import './image-elements.js';
 import './big-picture.js';
+import './upload-image.js';
+import './image-size.js';
+import './image-filters.js';
+import './form-validation.js';

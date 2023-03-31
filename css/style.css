@@ -1408,3 +1408,17 @@ main {
 .hidden {
   display: none;
 }
+
+/* Стили для pristine
+   ========================================================================== */
+
+.img-upload__field-wrapper {
+  position: relative;
+}
+
+.text--error {
+  position: absolute;
+  font-size: 9px;
+  bottom: 0;
+  left: 66px;
+}
