@@ -89,7 +89,7 @@ effectLevelSlider.noUiSlider.on('update', (values, handle) => {
   getFilterSettings(value);
 });
 
-function onFilterClick(evt) {
+const onFilterClick = (evt) => {
   preview.classList = `img-upload__preview ${evt.target.classList[1]}`;
   effectLevelValue.value = 100;
   effectLevelSlider.noUiSlider.set(100);
@@ -100,7 +100,7 @@ function onFilterClick(evt) {
   } else {
     effectLevel.classList.remove('hidden');
   }
-}
+};
 
 const addFiltersEvent = () => {
   effectLevel.classList.add('hidden');

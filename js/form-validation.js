@@ -10,7 +10,7 @@ const pristine = new Pristine(uploadImgForm, {
   errorTextClass: 'text--error'
 });
 
-function validateFormat () {
+const validateFormat = () => {
   const hashTagRegexp = /^#[a-zа-яё0-9]{1,19}$/i;
   const tags = hashtagsInput.value.trim().split(' ');
   const uniqueTags = [];
@@ -24,7 +24,7 @@ function validateFormat () {
     uniqueTags.push(tags[i]);
   }
   return uniqueTags.length <= 5;
-}
+};
 
 pristine.addValidator(
   hashtagsInput,
