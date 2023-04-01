@@ -11,30 +11,42 @@ const textDescription = document.querySelector('.text__description');
 
 
 const onDocumentKeyDown = (evt) => {
-  if (isEscapeKey(evt) && document.activeElement !== inputTag && document.activeElement !== textDescription) {
+  if (isEscapeKey(evt) && ![inputTag, textDescription].includes(document.activeElement)) {
     evt.preventDefault();
     uploadCancel ();
   }
 };
 
-const onButtonClick = () => {
+const onCancelButtonClick = () => {
   uploadCancel();
 };
 
-const upoloadPicture = () => {
-  uploadField.classList.remove('hidden');
-  document.body.classList.add('modal-open');
+const toggleUploadField = () => {
+  uploadField.classList.toggle('hidden');
+  document.body.classList.toggle('modal-open');
+};
+
+const addEventListeners = () => {
   document.addEventListener('keydown', onDocumentKeyDown);
-  uploadCancelButton.addEventListener('click', onButtonClick);
+  uploadCancelButton.addEventListener('click', onCancelButtonClick);
+};
+
+const removeEventListeners = () => {
+  document.removeEventListener('keydown', onDocumentKeyDown);
+  uploadCancelButton.removeEventListener('click', onCancelButtonClick);
+  removeFiltersEvent();
+  uploadPicInput.value = '';
+};
+
+const upoloadPicture = () => {
+  toggleUploadField();
+  addEventListeners();
   addFiltersEvent();
 };
 
 function uploadCancel() {
-  uploadField.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeyDown);
-  uploadCancelButton.removeEventListener('click', onButtonClick);
-  removeFiltersEvent();
+  toggleUploadField();
+  removeEventListeners();
 }
 
 uploadPicInput.addEventListener('change', (evt) => {
