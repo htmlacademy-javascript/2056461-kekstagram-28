@@ -1418,6 +1418,7 @@ main {
 
 .text--error {
   position: absolute;
+  text-align: left;
   font-size: 9px;
   bottom: 0;
   left: 66px;
