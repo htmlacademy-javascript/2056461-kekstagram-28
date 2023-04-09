@@ -58,17 +58,4 @@ pristine.addValidator(
   'нельзя указать больше пяти хэш-тегов'
 );
 
-hashtagsInput.addEventListener('input', () => {
-  if (hashtagsInput.value.length > 0) {
-    pristine.validate();
-  } else {
-    pristine.reset();
-  }
-});
-
-uploadImgForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  if (pristine.validate()) {
-    uploadImgForm.submit();
-  }
-});
+export {pristine};

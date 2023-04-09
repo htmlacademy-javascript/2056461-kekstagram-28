@@ -13,7 +13,7 @@ const textDescription = document.querySelector('.text__description');
 const onDocumentKeyDown = (evt) => {
   if (isEscapeKey(evt) && ![inputTag, textDescription].includes(document.activeElement)) {
     evt.preventDefault();
-    uploadCancel ();
+    uploadCancel();
   }
 };
 
@@ -38,7 +38,7 @@ const removeEventListeners = () => {
   uploadPicInput.value = '';
 };
 
-const upoloadPicture = () => {
+const uploadPicture = () => {
   toggleUploadField();
   addEventListeners();
   addFiltersEvent();
@@ -50,10 +50,10 @@ function uploadCancel() {
 }
 
 uploadPicInput.addEventListener('change', (evt) => {
-  upoloadPicture();
+  uploadPicture();
   const selectedFile = evt.target.files[0];
   const fileUrl = URL.createObjectURL(selectedFile);
   uploadPicPreview.src = fileUrl;
 });
 
-
+export {uploadPicture, uploadCancel};
