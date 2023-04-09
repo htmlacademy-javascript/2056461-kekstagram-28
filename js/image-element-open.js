@@ -1,6 +1,7 @@
-import {isEscapeKey} from './utils.js';
-import {usersImagesList, usersPublications} from './image-elements.js';
-import {renderPostContent, renderComments} from './picture-content.js';
+import {isEscapeKey, showAlert} from './utils.js';
+import {usersDataLoader} from './get-server-data.js';
+import {usersImagesList} from './image-elements.js';
+import {renderPostContent, renderComments} from './image-content.js';
 
 const bigPictureWindow = document.querySelector('.big-picture');
 const bigPictureClose = bigPictureWindow.querySelector('.big-picture__cancel');
@@ -36,23 +37,28 @@ function closeBigPicture() {
   picture = 0;
 }
 
-usersImagesList.addEventListener('click', (evt) => {
-  const thumbnail = evt.target.closest('[data-thumbnail-id]');
-  if (!thumbnail) {
-    return;
-  } else {
-    evt.preventDefault();
-  }
+const findPictureByID = (data) => {
+  usersImagesList.addEventListener('click', (evt) => {
+    const thumbnail = evt.target.closest('[data-thumbnail-id]');
+    if (!thumbnail) {
+      return;
+    } else {
+      evt.preventDefault();
+    }
 
-  picture = usersPublications.find((item) => item.id === Number(thumbnail.dataset.thumbnailId));
+    picture = data.find((item) => item.id === Number(thumbnail.dataset.thumbnailId));
 
-  if (evt.target.closest('.picture')) {
-    openBigPicture(picture);
-  }
-});
+    if (evt.target.closest('.picture')) {
+      openBigPicture(picture);
+    }
+  });
+};
+
 
 bigPictureClose.addEventListener('click', () => {
   closeBigPicture();
 });
+
+usersDataLoader(findPictureByID, showAlert);
 
 export {openBigPicture};
