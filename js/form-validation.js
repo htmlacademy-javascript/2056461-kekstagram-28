@@ -23,7 +23,7 @@ const validateTag = () => {
   return true;
 };
 
-const validateUniqnes = () => {
+const validateUniqueness = () => {
   const tags = hashtagsInput.value.toLowerCase().trim().split(' ');
   const uniqueTags = [];
   for (let i = 0; i < tags.length; i++) {
@@ -48,7 +48,7 @@ pristine.addValidator(
 
 pristine.addValidator(
   hashtagsInput,
-  validateUniqnes,
+  validateUniqueness,
   'один и тот же хэш-тег не может быть использован дважды'
 );
 

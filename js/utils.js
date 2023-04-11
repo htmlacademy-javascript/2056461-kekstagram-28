@@ -45,4 +45,13 @@ const unblockSubmitButton = (button) => {
   button.textContent = 'Опубликовать';
 };
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, showAlert, blockSubmitButton, unblockSubmitButton};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export {getRandomInteger, getRandomArrayElement, isEscapeKey, showAlert, blockSubmitButton, unblockSubmitButton, debounce};
