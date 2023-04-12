@@ -1,4 +1,4 @@
-const KEKSTAGRAM_GET = 'https://28.javascript.pages.academy/kekstagram/data';
+let serverData = [];
 
 const getServerData = (onSuccess, onError, serverAddress) => {
   fetch(serverAddress)
@@ -10,6 +10,7 @@ const getServerData = (onSuccess, onError, serverAddress) => {
       throw new onError('Не удалось загрузить данные с сервера. Попробуйте перезагрузить страницу.');
     })
     .then((data) => {
+      serverData = data;
       onSuccess(data);
     })
     .catch(() => {
@@ -17,4 +18,24 @@ const getServerData = (onSuccess, onError, serverAddress) => {
     });
 };
 
-export {getServerData, KEKSTAGRAM_GET};
+const postUserData = (onSuccess, onError, formInfo, serverAddress) => {
+  fetch(
+    serverAddress,
+    {
+      method: 'POST',
+      body: formInfo,
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else {
+        onError();
+      }
+    })
+    .catch(() => {
+      onError();
+    });
+};
+
+export {getServerData, postUserData, serverData};

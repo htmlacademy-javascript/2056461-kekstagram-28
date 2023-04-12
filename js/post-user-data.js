@@ -1,4 +1,5 @@
 import {pristine} from './form-validation.js';
+import {postUserData} from './server.js';
 import {uploadPicture, uploadCancel} from './image-user-upload.js';
 import {submitSuccessTemplate, submitErrorTemplate, alertSubmit} from './submit-modal.js';
 import {blockSubmitButton, unblockSubmitButton} from './utils.js';
@@ -17,26 +18,6 @@ const uploadSuccess = () => {
 
 const uploadFail = () => {
   alertSubmit(submitErrorTemplate, uploadPicture);
-};
-
-const postUserData = (onSuccess, onError, formInfo, serverAddress) => {
-  fetch(
-    serverAddress,
-    {
-      method: 'POST',
-      body: formInfo,
-    },
-  )
-    .then((response) => {
-      if (response.ok) {
-        onSuccess();
-      } else {
-        onError();
-      }
-    })
-    .catch(() => {
-      onError();
-    });
 };
 
 const postForm = () => {

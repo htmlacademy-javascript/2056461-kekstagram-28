@@ -1,9 +1,8 @@
 import {showAlert, debounce} from './utils.js';
-import {getServerData, KEKSTAGRAM_GET} from './get-server-data.js';
+import {getServerData, serverData} from './server.js';
 
 const imagesFilter = document.querySelector('.img-filters');
 const filtersForm = imagesFilter.querySelector('.img-filters__form');
-const filterDefault = imagesFilter.querySelector('#filter-default');
 const filterRandom = imagesFilter.querySelector('#filter-random');
 const filterDiscussed = imagesFilter.querySelector('#filter-discussed');
 
@@ -16,6 +15,7 @@ const usersPublicationsFragment = document.createDocumentFragment();
 
 const RERENDER_DELAY = 500;
 const RANDOM_POSTS_LENGTH = 10;
+const KEKSTAGRAM_GET = 'https://28.javascript.pages.academy/kekstagram/data';
 
 const renderUsersPosts = (data) => {
   let sortedData = data;
@@ -43,28 +43,21 @@ const renderUsersPosts = (data) => {
   imagesFilter.classList.remove('img-filters--inactive');
 };
 
+const setActiveButton = (button) => {
+  const activeButton = filtersForm.querySelector('.img-filters__button--active');
+  activeButton.classList.remove('img-filters__button--active');
+  button.classList.add('img-filters__button--active');
+  renderUsersPosts(serverData);
+};
+
 const deboncedFilterButtons = debounce((evt) => {
   evt.preventDefault();
-  if (evt.target.matches('#filter-default')) {
-    const activeButton = filtersForm.querySelector('.img-filters__button--active');
-    activeButton.classList.remove('img-filters__button--active');
-    filterDefault.classList.add('img-filters__button--active');
-    getServerData(renderUsersPosts, showAlert, KEKSTAGRAM_GET);
+  const clickedButton = evt.target;
+  if (clickedButton.classList.contains('img-filters__button--active')) {
+    return;
   }
 
-  if (evt.target.matches('#filter-random')) {
-    const activeButton = filtersForm.querySelector('.img-filters__button--active');
-    activeButton.classList.remove('img-filters__button--active');
-    filterRandom.classList.add('img-filters__button--active');
-    getServerData(renderUsersPosts, showAlert, KEKSTAGRAM_GET);
-  }
-
-  if (evt.target.matches('#filter-discussed')) {
-    const activeButton = filtersForm.querySelector('.img-filters__button--active');
-    activeButton.classList.remove('img-filters__button--active');
-    filterDiscussed.classList.add('img-filters__button--active');
-    getServerData(renderUsersPosts, showAlert, KEKSTAGRAM_GET);
-  }
+  setActiveButton(evt.target);
 }, RERENDER_DELAY);
 
 filtersForm.addEventListener('click', deboncedFilterButtons);
