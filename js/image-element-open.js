@@ -1,5 +1,5 @@
 import {isEscapeKey, showAlert} from './utils.js';
-import {getServerData, KEKSTAGRAM_GET} from './get-server-data.js';
+import {getServerData} from './server.js';
 import {usersImagesList} from './image-elements.js';
 import {renderPostContent, renderComments} from './image-content.js';
 
@@ -58,6 +58,8 @@ const findPictureByID = (data) => {
 bigPictureClose.addEventListener('click', () => {
   closeBigPicture();
 });
+
+const KEKSTAGRAM_GET = 'https://28.javascript.pages.academy/kekstagram/data';
 
 getServerData(findPictureByID, showAlert, KEKSTAGRAM_GET);
 

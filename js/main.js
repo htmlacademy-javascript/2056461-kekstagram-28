@@ -5,6 +5,6 @@ import './image-user-upload.js';
 import './image-size.js';
 import './image-filters.js';
 import './form-validation.js';
-import './get-server-data.js';
+import './server.js';
 import './post-user-data.js';
 import './submit-modal.js';
