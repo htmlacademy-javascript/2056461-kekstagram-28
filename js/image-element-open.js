@@ -1,5 +1,5 @@
 import {isEscapeKey, showAlert} from './utils.js';
-import {usersDataLoader} from './get-server-data.js';
+import {getServerData, KEKSTAGRAM_GET} from './get-server-data.js';
 import {usersImagesList} from './image-elements.js';
 import {renderPostContent, renderComments} from './image-content.js';
 
@@ -59,6 +59,6 @@ bigPictureClose.addEventListener('click', () => {
   closeBigPicture();
 });
 
-usersDataLoader(findPictureByID, showAlert);
+getServerData(findPictureByID, showAlert, KEKSTAGRAM_GET);
 
 export {openBigPicture};

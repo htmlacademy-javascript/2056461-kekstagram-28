@@ -1,10 +1,10 @@
 import {isEscapeKey, unblockSubmitButton} from './utils.js';
 
-const submitSuccessTamplate = document.querySelector('#success')
+const submitSuccessTemplate = document.querySelector('#success')
   .content
   .querySelector('.success');
 
-const submitErrorTamplate = document.querySelector('#error')
+const submitErrorTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
 
@@ -48,4 +48,4 @@ const alertSubmit = (tamplate, onError) => {
   document.body.appendChild(submitAllertElement);
 };
 
-export {submitSuccessTamplate, submitErrorTamplate, alertSubmit};
+export {submitSuccessTemplate, submitErrorTemplate, alertSubmit};

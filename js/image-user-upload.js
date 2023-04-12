@@ -9,6 +9,7 @@ const uploadCancelButton = uploadForm.querySelector('#upload-cancel');
 const inputTag = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const onDocumentKeyDown = (evt) => {
   if (isEscapeKey(evt) && ![inputTag, textDescription].includes(document.activeElement)) {
@@ -52,8 +53,12 @@ function uploadCancel() {
 uploadPicInput.addEventListener('change', (evt) => {
   uploadPicture();
   const selectedFile = evt.target.files[0];
-  const fileUrl = URL.createObjectURL(selectedFile);
-  uploadPicPreview.src = fileUrl;
+  const fileName = selectedFile.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    uploadPicPreview.src = URL.createObjectURL(selectedFile);
+  }
 });
 
 export {uploadPicture, uploadCancel};
