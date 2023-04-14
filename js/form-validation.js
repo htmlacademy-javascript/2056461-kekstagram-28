@@ -1,6 +1,5 @@
 const uploadImgForm = document.querySelector('#upload-select-image');
 const hashtagsInput = uploadImgForm.querySelector('.text__hashtags');
-
 const TAGS_LIMIT = 5;
 
 const pristine = new Pristine(uploadImgForm, {
@@ -12,19 +11,21 @@ const pristine = new Pristine(uploadImgForm, {
   errorTextClass: 'text--error'
 });
 
-const validateTag = () => {
+const getTagsList = () => hashtagsInput.value.toLowerCase().trim().split(/\s+/);
+
+function validateTag() {
   const hashTagRegexp = /^#[a-zа-яё0-9]{1,19}$/i;
-  const tags = hashtagsInput.value.toLowerCase().trim().split(' ');
+  const tags = getTagsList();
   for (let i = 0; i < tags.length; i++) {
     if (!hashTagRegexp.test(tags[i])) {
       return false;
     }
   }
   return true;
-};
+}
 
 const validateUniqueness = () => {
-  const tags = hashtagsInput.value.toLowerCase().trim().split(' ');
+  const tags = getTagsList();
   const uniqueTags = [];
   for (let i = 0; i < tags.length; i++) {
     if (uniqueTags.includes(tags[i])) {
@@ -36,7 +37,7 @@ const validateUniqueness = () => {
 };
 
 const validateLength = () => {
-  const tags = hashtagsInput.value.toLowerCase().trim().split(' ');
+  const tags = getTagsList();
   return tags.length <= TAGS_LIMIT;
 };
 

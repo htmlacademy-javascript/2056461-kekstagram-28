@@ -1,5 +1,3 @@
-let serverData = [];
-
 const getServerData = (onSuccess, onError, serverAddress) => {
   fetch(serverAddress)
     .then((response) => {
@@ -10,7 +8,6 @@ const getServerData = (onSuccess, onError, serverAddress) => {
       throw new onError('Не удалось загрузить данные с сервера. Попробуйте перезагрузить страницу.');
     })
     .then((data) => {
-      serverData = data;
       onSuccess(data);
     })
     .catch(() => {
@@ -38,4 +35,4 @@ const postUserData = (onSuccess, onError, formInfo, serverAddress) => {
     });
 };
 
-export {getServerData, postUserData, serverData};
+export {getServerData, postUserData};

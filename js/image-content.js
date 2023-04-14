@@ -7,11 +7,11 @@ const bigPictureCommenTotal = renderContainer.querySelector('.comments-count--to
 const bigPictureDescription = renderContainer.querySelector('.social__caption');
 const commentsField = renderContainer.querySelector('.social__comments');
 const commentsLoader = renderContainer.querySelector('.comments-loader');
+const COMMENTS_PORTION_SHOWN = 5;
 const commentElementTamplate = document.querySelector('#comment')
   .content
   .querySelector('.social__comment');
 
-const COMMENTS_PORTION_SHOWN = 5;
 let commentLength = 0;
 
 const renderPostContent = (element) => {
@@ -51,8 +51,8 @@ const renderComments = (element) => {
 
   commentsField.innerHTML = '';
   commentsField.appendChild(usersCommentsFragment);
-  bigPictureCommenTotal.innerHTML = usersComments.length;
-  bigPictureCommentsShown.innerHTML = commentLength;
+  bigPictureCommenTotal.textContent = usersComments.length;
+  bigPictureCommentsShown.textContent = commentLength;
 };
 
 export {renderPostContent, renderComments};
