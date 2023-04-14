@@ -1,15 +1,7 @@
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
+const ALERT_SHOW_TIME = 5000;
+const DEBOUNCE_DELAY = 500;
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
-
-const ALERT_SHOW_TIME = 5000;
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -45,7 +37,7 @@ const unblockSubmitButton = (button) => {
   button.textContent = 'Опубликовать';
 };
 
-function debounce (callback, timeoutDelay = 500) {
+function debounce (callback, timeoutDelay = DEBOUNCE_DELAY) {
   let timeoutId;
 
   return (...rest) => {
@@ -54,4 +46,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, showAlert, blockSubmitButton, unblockSubmitButton, debounce};
+export {isEscapeKey, showAlert, blockSubmitButton, unblockSubmitButton, debounce};

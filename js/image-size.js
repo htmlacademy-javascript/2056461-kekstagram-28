@@ -1,7 +1,6 @@
 const imgScaleContainer = document.querySelector('.img-upload__scale');
 const previewImage = document.querySelector('.img-upload__preview img');
 const valueField = imgScaleContainer.querySelector('.scale__control--value');
-
 const SCALE_STEP = 25;
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;

@@ -1,6 +1,7 @@
 import {isEscapeKey} from './utils.js';
 import {addFiltersEvent, removeFiltersEvent} from './image-filters.js';
 
+const uploadImgForm = document.querySelector('#upload-select-image');
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadField = uploadForm.querySelector('.img-upload__overlay');
 const uploadPicInput = uploadForm.querySelector('#upload-file');
@@ -8,7 +9,6 @@ const uploadPicPreview = uploadForm.querySelector('.img-upload__preview img');
 const uploadCancelButton = uploadForm.querySelector('#upload-cancel');
 const inputTag = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
-
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const onDocumentKeyDown = (evt) => {
@@ -36,7 +36,6 @@ const removeEventListeners = () => {
   document.removeEventListener('keydown', onDocumentKeyDown);
   uploadCancelButton.removeEventListener('click', onCancelButtonClick);
   removeFiltersEvent();
-  uploadPicInput.value = '';
 };
 
 const uploadPicture = () => {
@@ -48,6 +47,8 @@ const uploadPicture = () => {
 function uploadCancel() {
   toggleUploadField();
   removeEventListeners();
+  uploadPicInput.value = '';
+  uploadImgForm.reset();
 }
 
 uploadPicInput.addEventListener('change', (evt) => {
@@ -61,4 +62,4 @@ uploadPicInput.addEventListener('change', (evt) => {
   }
 });
 
-export {uploadPicture, uploadCancel};
+export {uploadPicture, uploadCancel, uploadPicInput};

@@ -1,28 +1,33 @@
 import {showAlert, debounce} from './utils.js';
-import {getServerData, serverData} from './server.js';
+import {getServerData} from './server.js';
+import {findPictureByID} from './image-element-open.js';
 
 const imagesFilter = document.querySelector('.img-filters');
 const filtersForm = imagesFilter.querySelector('.img-filters__form');
+const filterDefault = imagesFilter.querySelector('#filter-default');
 const filterRandom = imagesFilter.querySelector('#filter-random');
 const filterDiscussed = imagesFilter.querySelector('#filter-discussed');
-
 const usersImagesList = document.querySelector('.pictures');
+const RERENDER_DELAY = 500;
+const RANDOM_POSTS_LENGTH = 10;
+const KEKSTAGRAM_GET = 'https://28.javascript.pages.academy/kekstagram/data';
 const imageElementTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
 const usersPublicationsFragment = document.createDocumentFragment();
 
-const RERENDER_DELAY = 500;
-const RANDOM_POSTS_LENGTH = 10;
-const KEKSTAGRAM_GET = 'https://28.javascript.pages.academy/kekstagram/data';
+let serverDataCopy = [];
 
 const renderUsersPosts = (data) => {
   let sortedData = data;
+  serverDataCopy = data.slice();
+  if (filterDefault.classList.contains('img-filters__button--active')) {
+    sortedData = serverDataCopy;
+  }
   if (filterRandom.classList.contains('img-filters__button--active')) {
     sortedData = data.sort(() => Math.random() - 0.5).slice(0, RANDOM_POSTS_LENGTH);
   }
-
   if (filterDiscussed.classList.contains('img-filters__button--active')) {
     sortedData = data.sort((a, b) => b.comments.length - a.comments.length);
   }
@@ -31,7 +36,7 @@ const renderUsersPosts = (data) => {
     const imageElement = imageElementTemplate.cloneNode(true);
     imageElement.querySelector('.picture__img').src = url;
     imageElement.querySelector('.picture__img').alt = description;
-    imageElement.querySelector('.picture__comments').innerHTML = comments.length;
+    imageElement.querySelector('.picture__comments').textContent = comments.length;
     imageElement.querySelector('.picture__likes').textContent = likes;
     imageElement.dataset.thumbnailId = id;
     usersPublicationsFragment.appendChild(imageElement);
@@ -41,13 +46,14 @@ const renderUsersPosts = (data) => {
   imagesListElements.forEach((element) => usersImagesList.removeChild(element));
   usersImagesList.appendChild(usersPublicationsFragment);
   imagesFilter.classList.remove('img-filters--inactive');
+  findPictureByID(sortedData);
 };
 
 const setActiveButton = (button) => {
   const activeButton = filtersForm.querySelector('.img-filters__button--active');
   activeButton.classList.remove('img-filters__button--active');
   button.classList.add('img-filters__button--active');
-  renderUsersPosts(serverData);
+  renderUsersPosts(serverDataCopy);
 };
 
 const deboncedFilterButtons = debounce((evt) => {
@@ -64,4 +70,4 @@ filtersForm.addEventListener('click', deboncedFilterButtons);
 
 getServerData(renderUsersPosts, showAlert, KEKSTAGRAM_GET);
 
-export {usersImagesList};
+export {usersImagesList, serverDataCopy};
