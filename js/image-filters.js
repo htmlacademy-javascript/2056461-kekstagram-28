@@ -61,6 +61,7 @@ const getSliderSettings = () => {
         min: 0,
         max: 1,
       },
+      start: 1,
       step: 0.1,
       connect: 'lower',
     });

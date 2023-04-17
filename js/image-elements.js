@@ -2,15 +2,15 @@ import {showAlert, debounce} from './utils.js';
 import {getServerData} from './server.js';
 import {findPictureByID} from './image-element-open.js';
 
+const RERENDER_DELAY = 500;
+const RANDOM_POSTS_LENGTH = 10;
+const KEKSTAGRAM_GET = 'https://28.javascript.pages.academy/kekstagram/data';
 const imagesFilter = document.querySelector('.img-filters');
 const filtersForm = imagesFilter.querySelector('.img-filters__form');
 const filterDefault = imagesFilter.querySelector('#filter-default');
 const filterRandom = imagesFilter.querySelector('#filter-random');
 const filterDiscussed = imagesFilter.querySelector('#filter-discussed');
 const usersImagesList = document.querySelector('.pictures');
-const RERENDER_DELAY = 500;
-const RANDOM_POSTS_LENGTH = 10;
-const KEKSTAGRAM_GET = 'https://28.javascript.pages.academy/kekstagram/data';
 const imageElementTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');

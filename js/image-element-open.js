@@ -58,4 +58,4 @@ bigPictureClose.addEventListener('click', () => {
   closeBigPicture();
 });
 
-export {openBigPicture, findPictureByID};
+export {findPictureByID};

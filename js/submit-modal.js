@@ -8,31 +8,33 @@ const submitErrorTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
 
-const alertSubmit = (tamplate, onError) => {
-  const submitAllertElement = tamplate.cloneNode('true');
-  const closeButton = submitAllertElement.querySelector('button');
+let modalOpenStatus = false;
+
+const alertSubmit = (template) => {
+  const submitAlertElement = template.cloneNode('true');
+  const closeButton = submitAlertElement.querySelector('button');
   const submitButton = document.querySelector('#upload-submit');
 
-  const onCloseButtonClick = () => {
-    submitAllertElement.remove();
+  const getModalClose = () => {
+    submitAlertElement.remove();
     removeListeners();
     unblockSubmitButton(submitButton);
+    modalOpenStatus = false;
+  };
+
+  const onCloseButtonClick = () => {
+    getModalClose();
   };
 
   const onDocumentKeydown = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
-      submitAllertElement.remove();
-      removeListeners();
-      onError();
-      unblockSubmitButton(submitButton);
+      getModalClose();
     }
   };
 
   const onDocumentClick = () => {
-    submitAllertElement.remove();
-    removeListeners();
-    unblockSubmitButton(submitButton);
+    getModalClose();
   };
 
   function removeListeners() {
@@ -45,7 +47,8 @@ const alertSubmit = (tamplate, onError) => {
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onDocumentClick);
 
-  document.body.appendChild(submitAllertElement);
+  document.body.appendChild(submitAlertElement);
+  modalOpenStatus = true;
 };
 
-export {submitSuccessTemplate, submitErrorTemplate, alertSubmit};
+export {submitSuccessTemplate, submitErrorTemplate, alertSubmit, modalOpenStatus};
