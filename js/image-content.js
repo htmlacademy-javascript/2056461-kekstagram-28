@@ -1,14 +1,14 @@
+const COMMENTS_PORTION_SHOWN = 5;
 const renderContainer = document.querySelector('.big-picture');
 const bigPictureSelector = renderContainer.querySelector('.big-picture__img');
 const bigPictureSrc = bigPictureSelector.querySelector('img');
 const bigPictureLikesCount = renderContainer.querySelector('.likes-count');
 const bigPictureCommentsShown = renderContainer.querySelector('.comments-count');
-const bigPictureCommenTotal = renderContainer.querySelector('.comments-count--total');
+const bigPictureCommentTotal = renderContainer.querySelector('.comments-count--total');
 const bigPictureDescription = renderContainer.querySelector('.social__caption');
 const commentsField = renderContainer.querySelector('.social__comments');
 const commentsLoader = renderContainer.querySelector('.comments-loader');
-const COMMENTS_PORTION_SHOWN = 5;
-const commentElementTamplate = document.querySelector('#comment')
+const commentElementTemplate = document.querySelector('#comment')
   .content
   .querySelector('.social__comment');
 
@@ -24,7 +24,7 @@ const renderPostContent = (element) => {
 };
 
 const renderComment = (element) => {
-  const commentElement = commentElementTamplate.cloneNode(true);
+  const commentElement = commentElementTemplate.cloneNode(true);
   commentElement.querySelector('.social__picture').src = element.avatar;
   commentElement.querySelector('.social__picture').alt = element.name;
   commentElement.querySelector('.social__text').textContent = element.message;
@@ -51,7 +51,7 @@ const renderComments = (element) => {
 
   commentsField.innerHTML = '';
   commentsField.appendChild(usersCommentsFragment);
-  bigPictureCommenTotal.textContent = usersComments.length;
+  bigPictureCommentTotal.textContent = usersComments.length;
   bigPictureCommentsShown.textContent = commentLength;
 };
 
